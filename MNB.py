@@ -54,9 +54,8 @@ class MNB_classifier():
             num_of_neg_words += self.neg_MNB_vec[word]
         print num_of_neg_words
         self.being_pos_parameter = len(self.pos_MNB_vec)*1.0 / (len(self.pos_MNB_vec) + len(self.neg_MNB_vec))
-        self.word_and_pos_parameters = np.array([self.pos_MNB_vec[word]/1000 for word in self.words_dic])
-        self.word_and_neg_parameters = np.array([self.neg_MNB_vec[word]/1000 for word in self.words_dic])
-        # TODO: sum of num of words in positive samples instead of 1000
+        self.word_and_pos_parameters = np.array([self.pos_MNB_vec[word]/num_of_pos_words for word in self.words_dic])
+        self.word_and_neg_parameters = np.array([self.neg_MNB_vec[word]/num_of_neg_words for word in self.words_dic])
 
     # TODO: predict function
 
