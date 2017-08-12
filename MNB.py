@@ -2,6 +2,7 @@ import numpy as np
 from collections import Counter
 import re
 from sklearn.utils import shuffle
+from os import listdir
 
 def extract_data (data_file_path, ngram_par, percentage = 100):
     data_samples = []
@@ -96,8 +97,22 @@ class MNB_classifier():
         return result
 
 if __name__ == "__main__":
-    MNB_C = MNB_classifier("./data/mpqa/mpqa_t4.dat",2, 1, 80)
-    MNB_C.build_words_list()
-    MNB_C.build_samples_feature_vectors()
-    MNB_C.compute_parameters()
-    MNB_C.print_predicted_result("./data/mpqa/mpqa_t4.dat")
+    datasets = [f for f in listdir('./data')]
+    print 'we use 0.8 for train and 0.2 for test'
+    for f in datasets:
+        print 'dataset: ' + f
+        print 'unigram:'
+        MNB_C = MNB_classifier('./data/'+f,2, 1, 80)
+        MNB_C.build_words_list()
+        MNB_C.build_samples_feature_vectors()
+        MNB_C.compute_parameters()
+        MNB_C.print_predicted_result()
+        print ''
+        print 'bigram:'
+        MNB_C = MNB_classifier('./data/'+f,2, 2, 80)
+        MNB_C.build_words_list()
+        MNB_C.build_samples_feature_vectors()
+        MNB_C.compute_parameters()
+        MNB_C.print_predicted_result()
+        print ''
+        print ''
