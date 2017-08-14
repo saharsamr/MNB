@@ -3,6 +3,7 @@ from collections import Counter
 import re
 from sklearn.utils import shuffle
 from os import listdir
+from termcolor import colored
 
 def extract_data (data_file_path, ngram_par, percentage = 100):
     data_samples = []
@@ -98,17 +99,17 @@ class MNB_classifier():
 
 if __name__ == "__main__":
     datasets = [f for f in listdir('./data')]
-    print 'we use 0.8 for train and 0.2 for test'
+    print colored('We used 0.8 of each dataset as train data and 0.2 as test.', 'red')
     for f in datasets:
-        print 'dataset: ' + f
-        print 'unigram:'
+        print colored('dataset: ' + f, 'yellow')
+        print colored('unigram:', 'green')
         MNB_C = MNB_classifier('./data/'+f,2, 1, 80)
         MNB_C.build_words_list()
         MNB_C.build_samples_feature_vectors()
         MNB_C.compute_parameters()
         MNB_C.print_predicted_result()
         print ''
-        print 'bigram:'
+        print colored('bigram:', 'green')
         MNB_C = MNB_classifier('./data/'+f,2, 2, 80)
         MNB_C.build_words_list()
         MNB_C.build_samples_feature_vectors()
