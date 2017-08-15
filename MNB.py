@@ -4,14 +4,19 @@ import re
 from sklearn.utils import shuffle
 from os import listdir
 from termcolor import colored
+from nltk import ngrams
 
 def extract_data (data_file_path, ngram_par, percentage = 100):
     data_samples = []
     with open(data_file_path, "r") as file_:          #making vector of words from the given file
-        if ngram_par == 1:
-            x = ([re.compile("[a-zA-Z\']*[a-zA-Z]").findall(review) for review in file_])
-        elif ngram_par == 2:
-            x = ([re.compile("[a-zA-Z\']*[a-zA-Z][ ][a-zA-Z\']*[a-zA-Z]").findall(review) for review in file_])
+        samples = ([re.compile("[a-zA-Z\']*[a-zA-Z]").findall(review) for review in file_])
+        x = []
+        for sample in samples:
+            words_bag = []
+            for n in xrange(1, ngram_par + 1):
+                n_gram = ngrams(sample, n)
+                words_bag += [phrase for phrase in n_gram]
+            x.append(words_bag)
     with open(data_file_path, "r") as file_:
         y = ([re.compile("^[0-9]").findall(review) for review in file_])
     y = [int(par[0]) for par in y]
