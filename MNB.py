@@ -22,7 +22,7 @@ def extract_data (data_file_path, ngram_par, percentage = 100):
     y = [int(par[0]) for par in y]
     x, y = shuffle(x, y)
     train_data_len = len(x) * percentage / 100
-    return x[:train_data_len],y[:train_data_len], x[train_data_len:], y[train_data_len:]
+    return x[:train_data_len], y[:train_data_len], x[train_data_len:], y[train_data_len:]
 
 class MNB_classifier():
     def __init__ (self, file_path, num_of_calsses = 2, ngram_par = 1, percentage = 100):
